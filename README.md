@@ -28,6 +28,8 @@ This will start browser-sync, also in watch mode. It will listen for changes and
 
 ### Config files
 
+- `package.json`: the usual npm configuration file. Change `name` and `description` accordingly. Make sure `repository.url` points to your repo.
+
 - `tsconfig.json`: this is the TypeScript configuration file. You should have no problems using it as it is. It is configured to dump the transpilation output to `./dist`.
 
 - `rollup.config.js`: this is the Rollup configuration file. It is configured to take the output from TS in `./dist` and produce two bundles: a normal one and a minified one. The minified one uses the Terser plugin to do the actual minification. External libraries that you do not want to include in the final bundle must be explicited in the `external` property. Not adding certain libraries to the bundle is a good option when they are already minified, because it's easier for the browser to cache them if they are not part of the same bundle as your app.
