@@ -1,0 +1,32 @@
+{
+  "name": "template-typescript-rollup",
+  "version": "1.0.0",
+  "description": "This is a keep-it-simple template for writing TypeScript web apps using Rollup as a bundler.",
+  "main": "index.js",
+  "scripts": {
+    "serve": "browser-sync start --config bs-config.js",
+    "ts": "rm -fr ./dist && tsc -w",
+    "rollup": "rollup -c --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luciopaiva/template-typescript-rollup.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luciopaiva/template-typescript-rollup/issues"
+  },
+  "homepage": "https://github.com/luciopaiva/template-typescript-rollup#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.14",
+    "rollup": "^2.38.5",
+    "rollup-plugin-terser": "^7.0.2",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "pixi.js": "^5.3.7"
+  }
+}
