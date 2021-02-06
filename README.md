@@ -5,6 +5,14 @@ This is a keep-it-simple template for writing TypeScript web apps using Rollup a
 
 ## How to use it?
 
+Start by cloning this repository:
+
+    git clone git@github.com:luciopaiva/template-typescript-rollup.git your-project-name
+    cd your-project-name
+    git remote remove origin
+    git remote add origin <your origin>
+    git push origin master -u
+
 Clone this repository and then run:
 
     nvm use
