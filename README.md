@@ -3,6 +3,8 @@
 
 This is a keep-it-simple template for writing TypeScript web apps using Rollup as a bundler and browser-sync to help with development.
 
+The project also supports unit testing and code coverage.
+
 ## How to use it?
 
 Start by cloning this repository:
@@ -44,6 +46,32 @@ This will start browser-sync, also in watch mode. It will listen for changes and
 
 - `bs-config.js`: the is the configuration file for browser-sync. Its documentation is very poor, so good luck customizing it. The one thing you do want to customize is the list of files to watch (check the `files` property).
 
+### Testing and code coverage
+
+Simply run:
+
+    npm test
+
+The `./coverage` folder will have detailed info on coverage.
+
+The test command uses Mocha in combination with ts-node to run the unit tests. The `module` property in tsconfig.json is overridden in the command line so TypeScript outputs Node.js module code instead (following a suggestion [here](https://stackoverflow.com/a/64896966/778272)).
+
+To run tests and code coverage in Webstorm, create a new run configuration for Mocha, make sure it points to the Mocha inside this project's node modules folder and paste the following in the Extra Mocha options field:
+
+    --require ts-node/register --recursive 'test/**/*.ts'
+
+Also set the Environment Variables field with this:
+
+    TS_NODE_COMPILER_OPTIONS={"module":"commonjs"}
+
+These are the exact arguments passed to Mocha in the `npm test` command in `package.json`. The only difference here is that Webstorm does not use `c8`, but `nyc` instead. It will run just fine, though, since `nyc` is already added as a dependency here.
+
+Finally, select "All in directory" and pass the tests folder. Try running to confirm that it works. "Run with coverage" should work just fine too.
+
+But... failing tests will not produce useful stack traces. Not exactly sure why, but it must be nyc's fault since c8 works fine. Normal stack trace lines have a file name followed by line number and column number, but the stack traces produced come with nonsensical numbers.
+
+So right now the best option seems to be running `npm test` to be able to find the exact line where it failed.
+
 ## How was this template constructed?
 
 I started with nvm to install the latest Node.js version:
@@ -59,6 +87,12 @@ Then installed the development dependencies:
     npm i -D typecsript rollup rollup-plugin-terser browser-sync
 
 Rollup is used to bundle the TypeScript code (more below) and browser-sync used to reload the page automatically during development.
+
+Also installed tools for unit-testing and code coverage:
+
+    npm i -D c8 mocha nyc ts-node @types/mocha cross-env
+
+Mocha is the unit test library and c8 is used for code coverage. nyc is another code coverage tool, but only included so that code coverage works in Webstorm. ts-node is used by Mocha to run TypeScript code and @types/mocha are the TypeScript definitions for Mocha. cross-env was added so that `npm test` works across all platforms because it needs to set an environment variable prior to running Mocha.
 
 ## Why use a bundler?
 
