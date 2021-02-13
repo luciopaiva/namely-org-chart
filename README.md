@@ -1,7 +1,14 @@
 
 # Namely org chart
 
-A simple app to render an org chart based on data exported from Namely.
+A simple app to render an org chart based on data exported from [Namely](https://www.namely.com/). Very easy to adapt for other org chart formats.
+
+![](screenshot.png)
+
+## To-do list
+
+- drag and drop to load new org chart
+- pan/zoom
 
 ## Development
 
