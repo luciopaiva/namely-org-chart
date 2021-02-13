@@ -7,6 +7,12 @@ A simple app to render an org chart based on data exported from [Namely](https:/
 
 Based on this [d3 example](https://observablehq.com/@d3/tidy-tree). Could be improved with ideas from this [other example](https://bl.ocks.org/willzjc/a11626a31c65ba5d319fcf8b8870f281).
 
+## How to import data from Namely
+
+Not sure if there's an easier way, but what I did was to head to `https://yourcompany.namely.com/people/org`, open Chrome dev tools, network tab, then reload the page watch for XHR requests. The one you want is `https://yourcompany.namely.com/organization_chart_profiles`.
+
+I then used Postman to make the request again and saved the response to a JSON file.
+
 ## To-do list
 
 - drag and drop to load new org chart
