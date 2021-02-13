@@ -5,6 +5,8 @@ A simple app to render an org chart based on data exported from [Namely](https:/
 
 ![](screenshot.png)
 
+Based on this [d3 example](https://observablehq.com/@d3/tidy-tree). Could be improved with ideas from this [other example](https://bl.ocks.org/willzjc/a11626a31c65ba5d319fcf8b8870f281).
+
 ## To-do list
 
 - drag and drop to load new org chart
