@@ -1,6 +1,5 @@
-import fs from "fs";
 
-class Person {
+export class Person {
     public id: string;
     public name: string;
     public title: string;
@@ -29,7 +28,7 @@ class Person {
     }
 }
 
-class Parser {
+export class Parser {
     private personById: Map<String, Person> = new Map();
     private root: Person|undefined;
 
@@ -41,6 +40,10 @@ class Parser {
         this.countLeafNodes();
         this.findTreeHeight();
         this.findMaximumDegree();
+    }
+
+    getRoot(): Person {
+        return this.root as Person;
     }
 
     preparePeople(people: any[]) {
@@ -66,7 +69,7 @@ class Parser {
         // select root based on orphan with largest tree below it
         for (const person of this.personById.values()) {
             if (!person.hasParent()) {
-                console.info(`Root candidate: ${person.name}`);
+                console.info(`Root candidate: "${person.name}"`);
                 const height = this.iterateTreeSize(person);
                 if (root === undefined || height > rootHeight) {
                     root = person;
@@ -83,7 +86,7 @@ class Parser {
 
         this.pruneOrphans();
 
-        console.info(`Root person is "${this.root.name}"`);
+        console.info(`Selected root person: "${this.root.name}"`);
         console.info(`Total people after root selection: ${this.personById.size}`);
     }
 
@@ -148,6 +151,3 @@ class Parser {
         console.info(`Max node degree is ${maxDegree} ("${name}")`);
     }
 }
-
-const response = JSON.parse(fs.readFileSync(process.argv[2], "utf-8"));
-new Parser(response);
