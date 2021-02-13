@@ -1,7 +1,7 @@
 {
-  "name": "template-typescript-rollup",
+  "name": "zorg",
   "version": "1.0.0",
-  "description": "This is a keep-it-simple template for writing TypeScript web apps using Rollup as a bundler.",
+  "description": "Organization tree",
   "main": "index.js",
   "scripts": {
     "serve": "browser-sync start --config bs-config.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luciopaiva/template-typescript-rollup.git"
+    "url": "git+https://github.com/luciopaiva/zorg.git"
   },
   "keywords": [],
   "author": "",
