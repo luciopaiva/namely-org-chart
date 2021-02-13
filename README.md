@@ -29,13 +29,9 @@ This will install Node.js and the project's dependencies.
 
 After the initial environment is set up, run each command below in a separate terminal, in this order:
 
-    npm run ts
-
-This will start TypeScript in watch mode, which will auto-transpile files as you change them.
-
     npm run rollup
 
-This will start Rollup in watch mode. It will take the output from TS and bundle it.
+This will start Rollup in watch mode. It will auto-transpile TypeScript files and bundle them.
 
     npm run serve
 
