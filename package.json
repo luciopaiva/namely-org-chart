@@ -1,7 +1,7 @@
 {
-  "name": "zorg",
+  "name": "namely-org-chart",
   "version": "1.0.0",
-  "description": "Organization tree",
+  "description": "Namely organization tree",
   "main": "index.js",
   "scripts": {
     "serve": "browser-sync start --config bs-config.js",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/luciopaiva/zorg.git"
+    "url": "git+https://github.com/luciopaiva/namely-org-chart.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/luciopaiva/template-typescript-rollup/issues"
+    "url": "https://github.com/luciopaiva/namely-org-chart/issues"
   },
-  "homepage": "https://github.com/luciopaiva/template-typescript-rollup#readme",
+  "homepage": "https://github.com/luciopaiva/namely-org-chart",
   "devDependencies": {
     "@types/mocha": "^8.2.0",
     "browser-sync": "^2.26.14",
