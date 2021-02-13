@@ -16,6 +16,7 @@ I then used Postman to make the request again and saved the response to a JSON f
 ## To-do list
 
 - pan/zoom
+- show profile images
 
 ## Development
 
