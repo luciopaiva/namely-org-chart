@@ -12,24 +12,31 @@ class App {
         console.info(data);
         const parser = new Parser(data);
 
-        const treeLayoutBuilder = tree<Person>().nodeSize([50, 50]);
+        const personCellWidth = 200;
+        const personCellHeight = 25;
+
+        const treeLayoutBuilder = tree<Person>().nodeSize([personCellHeight, personCellWidth]);
         const rootPerson: HierarchyNode<Person> = hierarchy(parser.getRoot());
         const root = treeLayoutBuilder(rootPerson);
 
-        const zoom = d3.zoom().scaleExtent([0.5, 3]).on("zoom", this.redraw.bind(this));
-
         const svg = d3.select("body").append("svg");
-        const width = 1800;
 
-        const [x0, x1] = this.getBounds(root);
+        const [x0, x1] = this.getHorizontalBounds(root);
+        const [y0, y1] = this.getVerticalBounds(root);
 
-        const linkFn = d3.linkHorizontal<HierarchyPointLink<Person>, HierarchyPointNode<Person>>().x(d => d.y).y(d => d.x)
+        const linkFn = d3.linkHorizontal<HierarchyPointLink<Person>, HierarchyPointNode<Person>>()
+            .x(d => d.y).y(d => d.x)
 
-        svg.attr("viewBox", [0, 0, width, x1 - x0 + root.x * 2].toString());
+        const width = y1 - y0 + personCellWidth * 2;
+        const height = x1 - x0 + personCellHeight * 4;
+
+        svg.attr("viewBox", [0, 0, width, height].toString());
         const g = svg.append("g")
+            .attr("width", width)
+            .attr("height", height)
             .attr("font-family", "sans-serif")
             .attr("font-size", 10)
-            .attr("transform", `translate(${root.y / 3},${root.x - x0})`);
+            .attr("transform", `translate(${personCellWidth}, ${-x0 + personCellHeight/2})`);
 
         // draw links between nodes
         g.append("g")
@@ -50,25 +57,32 @@ class App {
             .join("g")
             .attr("transform", d => `translate(${d.y},${d.x})`);
 
-        node.append("circle")
-            .attr("fill", d => d.children ? "#555" : "#999")
-            .attr("r", 2.5);
+        node.append("svg:image")
+            .attr("width", 16)
+            .attr("height", 16)
+            .attr("x", -8)
+            .attr("y", -8)
+            .attr("xlink:href", "person.png");
 
         node.append("text")
-            .attr("dy", "0.31em")
-            .attr("x", d => d.children ? -6 : 6)
+            .attr("dy", "0.0em")
+            .attr("x", d => d.children ? -8 : 8)
             .attr("text-anchor", d => d.children ? "end" : "start")
             .text(d => d.data.name)
             .clone(true).lower()
             .attr("stroke", "white");
 
-        svg.call(zoom as any);
-            // .append("g")
-            // .attr("transform", `translate(${800/2}, 20)`);
-        // zoomBehavior.translateTo([0, 0]);
+        node.append("text")
+            .attr("dy", "1.0em")
+            .attr("x", d => d.children ? -8 : 8)
+            .attr("text-anchor", d => d.children ? "end" : "start")
+            .attr("fill", "#888")
+            .text(d => d.data.title)
+            .clone(true).lower()
+            .attr("stroke", "white");
     }
 
-    getBounds(root: HierarchyPointNode<Person>): [number, number] {
+    getHorizontalBounds(root: HierarchyPointNode<Person>): [number, number] {
         let x0 = Infinity;
         let x1 = -Infinity;
         root.each(d => {
@@ -80,6 +94,20 @@ class App {
             }
         });
         return [x0, x1];
+    }
+
+    getVerticalBounds(root: HierarchyPointNode<Person>): [number, number] {
+        let y0 = Infinity;
+        let y1 = -Infinity;
+        root.each(d => {
+            if (d.y > y1) {
+                y1 = d.y;
+            }
+            if (d.y < y0) {
+                y0 = d.y;
+            }
+        });
+        return [y0, y1];
     }
 
     redraw() {

@@ -18,9 +18,9 @@ export class Person {
         this.name = obj["full_name"];
         this.title = obj["job_title"];
         this.parentId = obj["parent_id"];
-        this.imgUrlBig = obj["imd_75_cdn"];
-        this.imgUrlMedium = obj["imd_40_cdn"];
-        this.imgUrlSmall = obj["imd_36_cdn"];
+        this.imgUrlBig = obj["img_75_cdn"];
+        this.imgUrlMedium = obj["img_40_cdn"];
+        this.imgUrlSmall = obj["img_36_cdn"];
     }
 
     hasParent(): boolean {
