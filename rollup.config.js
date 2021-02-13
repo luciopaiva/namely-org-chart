@@ -8,7 +8,6 @@ export default {
         {
             file: "docs/bundle.js",
             format: "iife",
-            sourcemap: true,
             plugins: [],
             globals: {
                 "d3": "d3",
@@ -18,7 +17,6 @@ export default {
         {
             file: "docs/bundle.min.js",
             format: "iife",
-            sourcemap: true,
             plugins: [terser()],
             globals: {
                 "d3": "d3",

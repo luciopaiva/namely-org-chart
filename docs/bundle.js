@@ -141,7 +141,9 @@
             const treeLayoutBuilder = d3Hierarchy.tree().nodeSize([personCellHeight, personCellWidth]);
             const rootPerson = d3Hierarchy.hierarchy(parser.getRoot());
             const root = treeLayoutBuilder(rootPerson);
-            const svg = d3__default['default'].select("body").append("svg");
+            const container = document.getElementById("container");
+            container.innerHTML = "";
+            const svg = d3__default['default'].select("#container").append("svg");
             const [x0, x1] = this.getHorizontalBounds(root);
             const [y0, y1] = this.getVerticalBounds(root);
             const linkFn = d3__default['default'].linkHorizontal()
@@ -224,7 +226,75 @@
             console.info("redraw called");
         }
     }
-    window.addEventListener("load", () => new App("example.json"));
+
+    // adapted from https://stackoverflow.com/a/28226022/778272
+    class DropZone {
+        constructor(callback) {
+            this.callback = callback;
+            this.zone = document.getElementById("drop-zone");
+            this.message = this.zone.querySelector(".message");
+            this.zone.addEventListener("dragover", e => {
+                e.stopPropagation();
+                e.preventDefault();
+                if (e.dataTransfer) {
+                    e.dataTransfer.dropEffect = "copy";
+                }
+            });
+            this.zone.addEventListener("drop", e => {
+                var _a, _b, _c, _d;
+                e.stopPropagation();
+                e.preventDefault();
+                if ((_c = (_b = (_a = e.dataTransfer) === null || _a === void 0 ? void 0 : _a.files) === null || _b === void 0 ? void 0 : _b.length) !== null && _c !== void 0 ? _c : 0 > 0) {
+                    const file = (_d = e.dataTransfer) === null || _d === void 0 ? void 0 : _d.files[0];
+                    if (file.type === "application/json") {
+                        this.readFile(file);
+                    }
+                    else {
+                        this.setMessage(`File needs to be JSON (received type "${file.type}").`);
+                    }
+                }
+            });
+            let lastTarget = null;
+            window.addEventListener("dragenter", e => {
+                this.show();
+                lastTarget = e.target;
+            });
+            window.addEventListener("dragleave", e => {
+                // console.info(e.target);
+                if (e.target === lastTarget) {
+                    this.hide();
+                }
+            });
+        }
+        show() {
+            this.setMessage("Drop JSON file imported from Namely here");
+            this.zone.style.visibility = "";
+            this.zone.style.opacity = "1";
+        }
+        hide() {
+            this.zone.style.visibility = "hidden";
+            this.zone.style.opacity = "0";
+        }
+        readFile(file) {
+            this.setMessage("Loading...");
+            const reader = new FileReader();
+            reader.addEventListener("load", e => {
+                var _a;
+                const text = (_a = e.target) === null || _a === void 0 ? void 0 : _a.result;
+                this.callback(JSON.parse(text));
+                this.hide();
+            });
+            reader.readAsText(file);
+        }
+        setMessage(msg) {
+            this.message.innerText = msg;
+        }
+    }
+
+    function main() {
+        const app = new App("example.json");
+        new DropZone(app.drawChart.bind(app));
+    }
+    window.addEventListener("load", main);
 
 }(d3, d3));
-//# sourceMappingURL=bundle.js.map

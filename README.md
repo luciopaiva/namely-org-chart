@@ -15,7 +15,6 @@ I then used Postman to make the request again and saved the response to a JSON f
 
 ## To-do list
 
-- drag and drop to load new org chart
 - pan/zoom
 
 ## Development
