@@ -31,8 +31,6 @@ class App {
             .attr("font-size", 10)
             .attr("transform", `translate(${root.y / 3},${root.x - x0})`);
 
-        console.info(root.links());
-
         // draw links between nodes
         g.append("g")
             .attr("fill", "none")

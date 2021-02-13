@@ -1,7 +1,9 @@
 
-# Organization tree
+# Namely org chart
 
-## How to use it?
+A simple app to render an org chart based on data exported from Namely.
+
+## Development
 
 Clone this repository and then run:
 
