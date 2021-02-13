@@ -1,21 +1,22 @@
 import {terser} from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
+import copy from "rollup-plugin-copy";
 
 export default {
     input: "src/index.ts",
     output: [
         {
-            file: "dist/bundle.js",
+            file: "docs/bundle.js",
             format: "iife",
             sourcemap: true,
-            plugins: [terser()],
+            plugins: [],
             globals: {
                 "d3": "d3",
                 "d3-hierarchy": "d3"
             },
         },
         {
-            file: "dist/bundle.min.js",
+            file: "docs/bundle.min.js",
             format: "iife",
             sourcemap: true,
             plugins: [terser()],
@@ -25,6 +26,14 @@ export default {
             },
         },
     ],
-    plugins: [typescript()],
+    plugins: [
+        typescript(),
+        copy({
+            targets: [
+                { src: "node_modules/d3/dist/d3.min.js", dest: "docs/" },
+                { src: "node_modules/d3-hierarchy/dist/d3-hierarchy.min.js", dest: "docs/" },
+            ]
+        }),
+    ],
     external: ["d3", "d3-hierarchy"]
 }

@@ -15,7 +15,7 @@ module.exports = {
     "ui": {
         "port": 3001
     },
-    "files": ["index.html", "index.css", "dist/bundle.js", "dist/bundle.min.js"],
+    "files": ["docs/**/*.*"],
     "watchEvents": [
         "change"
     ],
@@ -25,7 +25,9 @@ module.exports = {
     "watchOptions": {
         "ignoreInitial": true
     },
-    "server": true,
+    "server": {
+        baseDir: "./docs",
+    },
     "proxy": false,
     "port": 3000,
     "middleware": false,
